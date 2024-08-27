@@ -85,6 +85,7 @@ type server struct {
 	wgTunnelMTUv4         int
 	wgTunnelMTUv6         int
 	wgNetwork             string
+	proxyPSK              string
 	wgAddr                conn.Addr
 	handler               packet.Handler
 	logger                *zap.Logger
@@ -165,6 +166,7 @@ func (sc *ServerConfig) Server(logger *zap.Logger, listenConfigCache conn.Listen
 		wgTunnelMTUv4:        wgTunnelMTUv4,
 		wgTunnelMTUv6:        wgTunnelMTUv6,
 		wgNetwork:            sc.WgEndpointNetwork,
+		proxyPSK:             string(sc.ProxyPSK),
 		wgAddr:               sc.WgEndpointAddress,
 		handler:              handler,
 		logger:               logger,
@@ -219,6 +221,7 @@ func (s *server) startGeneric(ctx context.Context) error {
 		zap.String("server", s.name),
 		zap.String("listenAddress", s.proxyListenAddress),
 		zap.Stringer("wgAddress", &s.wgAddr),
+		zap.String("proxyPSK", s.proxyPSK),
 		zap.Int("wgTunnelMTUv4", s.wgTunnelMTUv4),
 		zap.Int("wgTunnelMTUv6", s.wgTunnelMTUv6),
 	)

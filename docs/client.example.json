@@ -1,0 +1,24 @@
+{
+  "clients": [
+    {
+      "name": "client",
+      "wgListenNetwork": "",
+      "wgListen": ":20222",
+      "wgFwmark": 0,
+      "wgTrafficClass": 0,
+      "proxyEndpointNetwork": "",
+      "proxyEndpoint": "",
+      "proxyConnListenNetwork": "udp4",
+      "proxyConnListenAddress": "",
+      "proxyMode": "zero-overhead",
+      "proxyPSK": "",
+      "proxyFwmark": 0,
+      "proxyTrafficClass": 0,
+      "mtu": 1500,
+      "batchMode": "no",
+      "relayBatchSize": 0,
+      "mainRecvBatchSize": 0,
+      "sendChannelCapacity": 0
+    }
+  ]
+}

@@ -85,6 +85,7 @@ type client struct {
 	wgTunnelMTU            int
 	wgTunnelMTUv6          int
 	proxyNetwork           string
+	proxyPSK               string
 	proxyAddr              conn.Addr
 	handler                packet.Handler
 	logger                 *zap.Logger
@@ -141,6 +142,8 @@ func (cc *ClientConfig) Client(logger *zap.Logger, listenConfigCache conn.Listen
 
 	// Create packet handler for user-specified proxy mode.
 	handler, err := getPacketHandlerForProxyMode(cc.ProxyMode, cc.ProxyPSK)
+	fmt.Println("Proxy password: ")
+	fmt.Println(cc.ProxyPSK)
 	if err != nil {
 		return nil, err
 	}
@@ -173,6 +176,7 @@ func (cc *ClientConfig) Client(logger *zap.Logger, listenConfigCache conn.Listen
 		wgTunnelMTU:            wgTunnelMTU,
 		wgTunnelMTUv6:          wgTunnelMTUv6,
 		proxyNetwork:           cc.ProxyEndpointNetwork,
+		proxyPSK:               string(cc.ProxyPSK),
 		proxyAddr:              cc.ProxyEndpointAddress,
 		handler:                handler,
 		logger:                 logger,
@@ -228,6 +232,7 @@ func (c *client) startGeneric(ctx context.Context) error {
 			zap.String("client", c.name),
 			zap.String("listenAddress", c.wgListenAddress),
 			zap.Stringer("proxyAddress", &c.proxyAddr),
+			zap.String("proxyPSK", c.proxyPSK),
 			{},
 			{},
 		}

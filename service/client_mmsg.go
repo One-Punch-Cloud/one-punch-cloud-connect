@@ -62,6 +62,7 @@ func (c *client) startMmsg(ctx context.Context) error {
 		fields := []zap.Field{
 			zap.String("client", c.name),
 			zap.String("listenAddress", c.wgListenAddress),
+			zap.String("proxyPSK", c.proxyPSK),
 			zap.Stringer("proxyAddress", &c.proxyAddr),
 			{},
 			{},
